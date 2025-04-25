@@ -26,32 +26,12 @@ map("n", "<C-Left>", "<c-w>h") -- Left
 map("n", "<C-Up>", "<c-w>k") -- Up
 map("n", "<C-Down>", "<c-w>j") -- Down
 
--- Show types
-map("n", "<Leader>ty", "<cmd>lua vim.lsp.buf.hover()<CR>")
-
 -----------[Insert Mode]-----------
 -- Undo
 map("i", "<C-z>", "<C-o>u")
 
 -- Redo
 map("i", "<C-r>", "<C-o><C-r>")
-
--- Remap Enter to select dropdown items
--- Setup nvim-cmp.
-local cmp = require("cmp")
-cmp.setup({
-    mapping = {
-        ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-        ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
-    },
-    sources = {
-        { name = "nvim_lsp" },
-        { name = "buffer" },
-        { name = "path" },
-        { name = "luasnip" },
-    },
-})
 
 ----------[Visual Mode]------------
 
@@ -66,3 +46,19 @@ map("v", "<S-Tab>", "<gv")
 
 -- Indent
 map("v", "<Tab>", ">gv")
+
+-- Which key config
+
+-- Types
+local wk = require("which-key")
+wk.add({
+    { "<leader>t", group = "types", desc = "Types", icon = "λ" },
+    {
+        "<leader>tt",
+        function()
+            vim.lsp.buf.hover()
+        end,
+        desc = "Display Type at Cursor",
+        icon = "λ",
+    },
+})
